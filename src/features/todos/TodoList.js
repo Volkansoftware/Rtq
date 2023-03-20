@@ -10,6 +10,10 @@ import {
 } from "react-router-dom";
 const TodoList = () => {
     const [newTodo, setNewTodo] = useState('')
+    const [view, setView] = useState(false)
+   const toggleView = () => {
+        setView(!view)
+    }
     const {
         data: todos,
         isLoading,
@@ -54,9 +58,13 @@ const TodoList = () => {
         return (
             
             <article key={todo.id}>
-                  <Routes>
-        <Route path={`/ViewToDo:${todo.id}`} element={<ViewTodo todo={todo.id} />} />
-      </Routes>
+                {
+                    view ?      <Routes>
+                    <Route path={`/ViewToDo:${todo.id}`} element={<ViewTodo todo={todo.id} />} />
+                  </Routes>:
+                  undefined
+                }
+             
                 <div className="todo">
                     <input
                         type="checkbox"
@@ -66,7 +74,7 @@ const TodoList = () => {
                     />
                     <label htmlFor={todo.id}>{todo.title}</label>
                 </div>
-                <Link to={`/ViewToDo:${todo.id}`}><button type='button'>View</button></Link>
+                <Link to={`/ViewToDo:${todo.id}`}><button onClick={toggleView} type='button'>View</button></Link>
                 <button className="trash" onClick={() => deleteTodo({ id: todo.id })}>
                     <FontAwesomeIcon icon={faTrash} />
                 </button>
