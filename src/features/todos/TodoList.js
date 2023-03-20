@@ -2,6 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { useState } from "react"
 import { useGetirTodosQuery, useAddTodoMutation, useUpdateTodoMutation,useDeleteTodoMutation } from '../api/apiSlice'
+import ViewTodo from '../../components/ViewTodo';
+import {
+  Link,
+  Route,
+  Routes
+} from "react-router-dom";
 const TodoList = () => {
     const [newTodo, setNewTodo] = useState('')
     const {
@@ -46,7 +52,11 @@ const TodoList = () => {
    else if (isSuccess) {
     content = todos.map(todo => { 
         return (
+            
             <article key={todo.id}>
+                  <Routes>
+        <Route path={`/ViewToDo:${todo.id}`} element={<ViewTodo todo={todo.id} />} />
+      </Routes>
                 <div className="todo">
                     <input
                         type="checkbox"
@@ -56,6 +66,7 @@ const TodoList = () => {
                     />
                     <label htmlFor={todo.id}>{todo.title}</label>
                 </div>
+                <Link to={`/ViewToDo:${todo.id}`}><button type='button'>View</button></Link>
                 <button className="trash" onClick={() => deleteTodo({ id: todo.id })}>
                     <FontAwesomeIcon icon={faTrash} />
                 </button>
@@ -69,6 +80,8 @@ const TodoList = () => {
 
     return (
         <main>
+            
+          
             <h1>Todo List</h1>
             {newItemSection}
             {content}
