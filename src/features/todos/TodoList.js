@@ -74,7 +74,7 @@ const TodoList = () => {
                     />
                     <label htmlFor={todo.id}>{todo.title}</label>
                 </div>
-                <Link to={`/ViewToDo:${todo.id}`}><button onClick={toggleView} type='button'>View</button></Link>
+                <Link to={`/ViewToDo:${todo.id}`}><button onClick={toggleView} className="btn" type='button'>View</button></Link>
                 <button className="trash" onClick={() => deleteTodo({ id: todo.id })}>
                     <FontAwesomeIcon icon={faTrash} />
                 </button>
@@ -88,8 +88,8 @@ const TodoList = () => {
 
     return (
         <main>
-            
-          
+           
+           
             <h1>Todo List</h1>
             {newItemSection}
             {content}
